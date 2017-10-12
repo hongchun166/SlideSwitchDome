@@ -18,7 +18,11 @@ android {
         }
     }
 }
-
+//repositories {
+//    flatDir{
+//        dirs 'libs'
+//    }
+//}
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -29,4 +33,5 @@ dependencies {
 
     compile project(':slideswitch')
 
+//    compile(name:'slideswitch', ext:'aar')
 }
