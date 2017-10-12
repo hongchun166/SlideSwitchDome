@@ -1,4 +1,4 @@
-package com.thc.mydomeview.help;
+package thc.com.thcutils;
 
 import android.content.Context;
 

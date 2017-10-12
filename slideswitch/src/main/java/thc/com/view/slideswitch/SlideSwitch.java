@@ -1,4 +1,4 @@
-package com.thc.mydomeview.view;
+package thc.com.view.slideswitch;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -17,8 +17,9 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.thc.mydomeview.R;
-import com.thc.mydomeview.help.DpSpPxConvertUtils;
+import thc.com.slideswitch.R;
+import thc.com.thcutils.DpSpPxConvertUtils;
+
 
 /**
  * Created by Nicky on 2017/9/27.
@@ -27,17 +28,17 @@ import com.thc.mydomeview.help.DpSpPxConvertUtils;
  * http://blog.csdn.net/chziroy/article/details/44146911
  * 小滑块改为宽度一半
  */
-public class THCSlideSwitch extends View {
+public class SlideSwitch extends View {
 
-    public THCSlideSwitch(Context context) {
+    public SlideSwitch(Context context) {
         this(context, null);
     }
 
-    public THCSlideSwitch(Context context, @Nullable AttributeSet attrs) {
+    public SlideSwitch(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public THCSlideSwitch(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public SlideSwitch(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView(context, attrs, defStyleAttr);
     }
@@ -75,17 +76,17 @@ public class THCSlideSwitch extends View {
 
     private void initView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
 
-        TypedArray typedArray=context.obtainStyledAttributes(attrs, R.styleable.THCSlideSwitch);
-        close_color=typedArray.getColor(R.styleable.THCSlideSwitch_mSS_close_color,Color.GRAY);
-        open_color=typedArray.getColor(R.styleable.THCSlideSwitch_mSS_open_color,Color.GREEN);
-        thunm_color=typedArray.getColor(R.styleable.THCSlideSwitch_mSS_thunm_color,Color.WHITE);
-        shapeStype=typedArray.getInt(R.styleable.THCSlideSwitch_mSS_shape,SHAPE_CIRCLE);
+        TypedArray typedArray=context.obtainStyledAttributes(attrs, R.styleable.SlideSwitch);
+        close_color=typedArray.getColor(R.styleable.SlideSwitch_mSS_close_color,Color.GRAY);
+        open_color=typedArray.getColor(R.styleable.SlideSwitch_mSS_open_color,Color.GREEN);
+        thunm_color=typedArray.getColor(R.styleable.SlideSwitch_mSS_thunm_color,Color.WHITE);
+        shapeStype=typedArray.getInt(R.styleable.SlideSwitch_mSS_shape,SHAPE_CIRCLE);
 
-        isOpen=typedArray.getBoolean(R.styleable.THCSlideSwitch_mSS_isOpen,false);
+        isOpen=typedArray.getBoolean(R.styleable.SlideSwitch_mSS_isOpen,false);
 
-        textClose=typedArray.getString(R.styleable.THCSlideSwitch_mSS_textClose);
-        textOpen=typedArray.getString(R.styleable.THCSlideSwitch_mSS_textOpen);
-        textSize=typedArray.getDimension(R.styleable.THCSlideSwitch_mSS_textSize, DpSpPxConvertUtils.sp2px(context,14));
+        textClose=typedArray.getString(R.styleable.SlideSwitch_mSS_textClose);
+        textOpen=typedArray.getString(R.styleable.SlideSwitch_mSS_textOpen);
+        textSize=typedArray.getDimension(R.styleable.SlideSwitch_mSS_textSize, DpSpPxConvertUtils.sp2px(context,14));
 
         typedArray.recycle();
 
@@ -207,7 +208,7 @@ public class THCSlideSwitch extends View {
         }else{
             paint.setColor(close_color);
         }
-        int jianjuX=DpSpPxConvertUtils.dip2px(getContext(),6);
+        int jianjuX= DpSpPxConvertUtils.dip2px(getContext(),6);
         int jianjuY=DpSpPxConvertUtils.dip2px(getContext(),4);
         int x1=thunmLeftLocation+thunmWidth/2-jianjuX;
         int x2=thunmLeftLocation+thunmWidth/2;
@@ -301,13 +302,13 @@ public class THCSlideSwitch extends View {
                     case HANDLER_OPEN:
                         isOpen=true;
                         if(onSlideListener!=null){
-                            onSlideListener.onSlideChangCallback(THCSlideSwitch.this,true);
+                            onSlideListener.onSlideChangCallback(SlideSwitch.this,true);
                         }
                         break;
                     case HANDLER_CLOSE:
                         isOpen=false;
                         if(onSlideListener!=null){
-                            onSlideListener.onSlideChangCallback(THCSlideSwitch.this,false);
+                            onSlideListener.onSlideChangCallback(SlideSwitch.this,false);
                         }
                         break;
                     case HANDLER_ANIM_END:
@@ -364,7 +365,7 @@ public class THCSlideSwitch extends View {
 
     OnSlideListener onSlideListener;
     public interface OnSlideListener{
-        void onSlideChangCallback(THCSlideSwitch slideSwitch, boolean isOpen);
+        void onSlideChangCallback(SlideSwitch slideSwitch, boolean isOpen);
     }
     public void setOnSlideListener(OnSlideListener onSlideListener) {
         this.onSlideListener = onSlideListener;

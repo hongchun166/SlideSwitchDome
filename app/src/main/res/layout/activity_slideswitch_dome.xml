@@ -9,7 +9,7 @@
     android:background="#FAFAFA"
     >
 
-    <com.thc.mydomeview.view.THCSlideSwitch
+    <thc.com.view.slideswitch.SlideSwitch
         android:id="@+id/view_SlideSwitch_one"
         android:layout_width="80dp"
         android:layout_height="30dp"
@@ -24,7 +24,7 @@
         app:mSS_textOpen="开"
         app:mSS_textSize="16sp"
         />
-    <com.thc.mydomeview.view.THCSlideSwitch
+    <thc.com.view.slideswitch.SlideSwitch
         android:id="@+id/view_SlideSwitch_two"
         android:layout_width="80dp"
         android:layout_height="30dp"
@@ -39,7 +39,7 @@
         android:layout_marginTop="10dp"
         />
 
-    <com.thc.mydomeview.view.THCSlideSwitch
+    <thc.com.view.slideswitch.SlideSwitch
         android:id="@+id/view_SlideSwitch_three"
         android:layout_width="80dp"
         android:layout_height="30dp"
@@ -56,7 +56,7 @@
         android:layout_marginTop="10dp"
         />
 
-    <com.thc.mydomeview.view.THCSlideSwitch
+    <thc.com.view.slideswitch.SlideSwitch
         android:id="@+id/view_SlideSwitch_four"
         android:layout_width="80dp"
         android:layout_height="30dp"
@@ -71,7 +71,7 @@
         android:layout_marginTop="10dp"
         />
 
-    <com.thc.mydomeview.view.THCSlideSwitch
+    <thc.com.view.slideswitch.SlideSwitch
         android:id="@+id/view_SlideSwitch_five"
         android:layout_width="200dp"
         android:layout_height="30dp"

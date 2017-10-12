@@ -5,14 +5,15 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.thc.mydomeview.R;
-import com.thc.mydomeview.view.THCSlideSwitch;
+
+import thc.com.view.slideswitch.SlideSwitch;
 
 /**
  * Created by Nicky on 2017/10/12.
  */
 
-public class SlideSwitchDomeActivity extends AppCompatActivity implements THCSlideSwitch.OnSlideListener{
-    THCSlideSwitch view_SlideSwitch_one;
+public class SlideSwitchDomeActivity extends AppCompatActivity implements SlideSwitch.OnSlideListener{
+    SlideSwitch view_SlideSwitch_one;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +23,7 @@ public class SlideSwitchDomeActivity extends AppCompatActivity implements THCSli
     }
 
     private void initView(){
-        view_SlideSwitch_one= (THCSlideSwitch) findViewById(R.id.view_SlideSwitch_one);
+        view_SlideSwitch_one= (SlideSwitch) findViewById(R.id.view_SlideSwitch_one);
 
     }
 
@@ -30,7 +31,7 @@ public class SlideSwitchDomeActivity extends AppCompatActivity implements THCSli
         view_SlideSwitch_one.setOnSlideListener(this);
     }
     @Override
-    public void onSlideChangCallback(THCSlideSwitch slideSwitch, boolean isOpen) {
+    public void onSlideChangCallback(SlideSwitch slideSwitch, boolean isOpen) {
 
     }
 }

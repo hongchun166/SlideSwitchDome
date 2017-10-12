@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="THCSlideSwitch">
+    <declare-styleable name="SlideSwitch">
         <attr name="mSS_close_color" format="color"/>
         <attr name="mSS_open_color" format="color"/>
         <attr name="mSS_thunm_color" format="color"/>
