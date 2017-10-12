@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="THCSlideSwitch">
+        <attr name="mSS_close_color" format="color"/>
+        <attr name="mSS_open_color" format="color"/>
+        <attr name="mSS_thunm_color" format="color"/>
+        <attr name="mSS_isOpen" format="boolean"/>
+        <attr name="mSS_textOpen" format="string"/>
+        <attr name="mSS_textClose" format="string"/>
+        <attr name="mSS_textSize" format="dimension"/>
+        <attr name="mSS_shape" >
+            <enum name="rect" value="1"/>
+            <enum name="circle" value="2"/>
+        </attr>
+    </declare-styleable>
+
+</resources>
