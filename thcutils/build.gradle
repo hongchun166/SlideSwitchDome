@@ -29,3 +29,12 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
     testCompile 'junit:junit:4.12'
 }
+
+task makeJar(type: Copy) {
+    delete 'build/libs/classes.jar'
+    from('build/intermediates/bundles/default/')
+    into('build/libs/')
+    include('classes.jar')
+    rename('classes.jar', 'classes.jar')
+}
+makeJar.dependsOn(build)
