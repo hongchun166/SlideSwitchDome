@@ -15,4 +15,18 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="AlphabetView">
+        <attr name="mAV_bgColor" format="color"/>
+        <attr name="mAV_bgColorSelect" format="color"/>
+        <attr name="mAV_textColor" format="color"/>
+        <attr name="mAV_textColorSelect" format="color"/>
+        <attr name="mAV_textSize" format="dimension"/>
+        <attr name="mAV_textSizeSelect" format="dimension"/>
+        <attr name="mAV_popBgColor" format="color"/>
+        <attr name="mAV_popTextColor" format="color"/>
+        <attr name="mAV_popTextSize" format="dimension"/>
+        <attr name="mAV_popW" format="dimension"/>
+        <attr name="mAV_popH" format="dimension"/>
+    </declare-styleable>
+
 </resources>

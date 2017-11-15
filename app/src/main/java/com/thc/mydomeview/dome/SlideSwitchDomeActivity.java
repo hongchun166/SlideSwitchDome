@@ -1,8 +1,10 @@
 package com.thc.mydomeview.dome;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.thc.mydomeview.R;
 
@@ -30,6 +32,11 @@ public class SlideSwitchDomeActivity extends AppCompatActivity implements SlideS
     private void initEven(){
         view_SlideSwitch_one.setOnSlideListener(this);
     }
+
+    public void startAlphabetClick(View view){
+        startActivity(new Intent(this,AlphabetDemoActivity.class));
+    }
+
     @Override
     public void onSlideChangCallback(SlideSwitch slideSwitch, boolean isOpen) {
 
