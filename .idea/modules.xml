@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MyDomeView.iml" filepath="$PROJECT_DIR$/MyDomeView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SlideSwitchDome.iml" filepath="$PROJECT_DIR$/SlideSwitchDome.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/slideswitch/slideswitch.iml" filepath="$PROJECT_DIR$/slideswitch/slideswitch.iml" />
       <module fileurl="file://$PROJECT_DIR$/slideswitch/slideswitch.iml" filepath="$PROJECT_DIR$/slideswitch/slideswitch.iml" />
     </modules>
   </component>

@@ -37,6 +37,8 @@
         app:mSS_shape="circle"
         app:mSS_textSize="16sp"
         android:layout_marginTop="10dp"
+        app:mSS_isThumShapeEquilateral="true"
+        app:mSS_isThumLine="false"
         />
 
     <thc.com.view.slideswitch.SlideSwitch
@@ -54,6 +56,8 @@
         app:mSS_textOpen="开"
         app:mSS_textSize="16sp"
         android:layout_marginTop="10dp"
+        app:mSS_isThumLine="true"
+        app:mSS_isThumShapeEquilateral="false"
         />
 
     <thc.com.view.slideswitch.SlideSwitch
@@ -69,6 +73,8 @@
         app:mSS_shape="rect"
         app:mSS_textSize="16sp"
         android:layout_marginTop="10dp"
+        app:mSS_isThumLine="false"
+        app:mSS_isThumShapeEquilateral="false"
         />
 
     <thc.com.view.slideswitch.SlideSwitch
@@ -86,6 +92,8 @@
         app:mSS_textOpen="开"
         app:mSS_textSize="16sp"
         android:layout_marginTop="10dp"
+        app:mSS_isThumLine="true"
+        app:mSS_isThumShapeEquilateral="true"
         />
 
     <Button

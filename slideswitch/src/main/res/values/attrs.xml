@@ -5,6 +5,8 @@
         <attr name="mSS_close_color" format="color"/>
         <attr name="mSS_open_color" format="color"/>
         <attr name="mSS_thunm_color" format="color"/>
+        <attr name="mSS_isThumLine" format="boolean"/>
+        <attr name="mSS_isThumShapeEquilateral" format="boolean"/>
         <attr name="mSS_isOpen" format="boolean"/>
         <attr name="mSS_textOpen" format="string"/>
         <attr name="mSS_textClose" format="string"/>

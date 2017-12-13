@@ -50,8 +50,11 @@ public class SlideSwitch extends View {
 
     private Paint paint;
     Rect backRect;//背景大小
-
     Rect thumbRect;//拇指小块大小
+
+    RectF backCircleRect;
+    RectF thumbCircleRect;
+
     int thunmWidth;
     int thunmHeight;
     int thunmLeftLocation = 0;
@@ -70,6 +73,8 @@ public class SlideSwitch extends View {
     int close_color;
     int open_color;
     int thunm_color;
+    boolean isThumLine=false;
+    boolean isThumEquilateral=false;
     int shapeStype=SHAPE_CIRCLE;
     String textOpen,textClose;
     float textSize=0.0f;
@@ -80,6 +85,8 @@ public class SlideSwitch extends View {
         close_color=typedArray.getColor(R.styleable.SlideSwitch_mSS_close_color,Color.GRAY);
         open_color=typedArray.getColor(R.styleable.SlideSwitch_mSS_open_color,Color.GREEN);
         thunm_color=typedArray.getColor(R.styleable.SlideSwitch_mSS_thunm_color,Color.WHITE);
+        isThumLine=typedArray.getBoolean(R.styleable.SlideSwitch_mSS_isThumLine,false);
+        isThumEquilateral=typedArray.getBoolean(R.styleable.SlideSwitch_mSS_isThumShapeEquilateral,false);
         shapeStype=typedArray.getInt(R.styleable.SlideSwitch_mSS_shape,SHAPE_CIRCLE);
 
         isOpen=typedArray.getBoolean(R.styleable.SlideSwitch_mSS_isOpen,false);
@@ -124,21 +131,25 @@ public class SlideSwitch extends View {
     /**
      * 初始化绘制参数
      */
-    public void initDrawingVal() {
+    protected void initDrawingVal() {
         int width = getMeasuredWidth();
         int height = getMeasuredHeight();
         backRect = new Rect(0, 0, width, height);
+        thumbRect=new Rect();
 
-        if (shapeStype == SHAPE_RECT) {
-            thunmHeight = height - RIM_SIZE;
-            thunmWidth = width / 2 - RIM_SIZE;
-        } else {
-            thunmHeight = height - RIM_SIZE;
-            thunmWidth = width / 2 - RIM_SIZE;
-        }
-        thunmMaxLeft = width / 2;
+        backCircleRect=new RectF(0, 0, width, height);
+        thumbCircleRect=new RectF();
+
+        thunmHeight = height - RIM_SIZE;
         thunmMinLeft = RIM_SIZE;
 
+        if(isThumEquilateral){
+            thunmWidth=height;
+            thunmMaxLeft = width-thunmWidth;
+        }else {
+            thunmWidth = width / 2 - RIM_SIZE;
+            thunmMaxLeft = width / 2;
+        }
         if (isOpen) {
             thunmLeftLocation = thunmMaxLeft;
             alpha = 255;
@@ -146,13 +157,18 @@ public class SlideSwitch extends View {
             thunmLeftLocation = RIM_SIZE;
             alpha = 0;
         }
-
         thunmLeftLocationBegin=thunmLeftLocation;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        drawaBack(shapeStype,canvas);
+        drawaText(canvas);
+        drawaThunm(shapeStype,canvas);
+        drawaThunmLine(canvas);
+    }
+    protected void drawaBack(int shapeStype,Canvas canvas){
         if (shapeStype == SHAPE_RECT) {
             //绘制底色
             paint.setColor(close_color);
@@ -163,18 +179,15 @@ public class SlideSwitch extends View {
             canvas.drawRect(backRect, paint);
         } else {
             paint.setColor(close_color);
-            int radius = backRect.height() / 2 - RIM_SIZE;
-            canvas.drawRoundRect(new RectF(backRect), radius, radius, paint);
+            int radius = (int) (backCircleRect.height() / 2 - RIM_SIZE);
+            canvas.drawRoundRect(backCircleRect, radius, radius, paint);
             //绘制状态,按滑动距离设置透明度
             paint.setColor(open_color);
             paint.setAlpha(alpha);
-            canvas.drawRoundRect(new RectF(backRect), radius, radius, paint);
+            canvas.drawRoundRect(backCircleRect, radius, radius, paint);
         }
-        drawaText(canvas);
-        drawaThunm(shapeStype,canvas);
-        drawaThunmLine(canvas);
     }
-    private void drawaText(Canvas canvas){
+    protected void drawaText(Canvas canvas){
         if(TextUtils.isEmpty(textClose)||TextUtils.isEmpty(textOpen)){
             return;
         }
@@ -183,26 +196,59 @@ public class SlideSwitch extends View {
         float textW=paint.measureText(textOpen);
         float textH=paint.ascent()+paint.descent();
         //open 左，close右
-        float openX=(getMeasuredWidth()-thunmWidth)/2-textW/2;
-        float openY=getMeasuredHeight()/2-textH/2;
-        float closeX=thunmWidth+(getMeasuredWidth()-thunmWidth)/2-textW/2;
 
+        float openY=getMeasuredHeight()/2-textH/2;
+        float openX;
+        float closeX;
+        if(isThumEquilateral){
+            openX=RIM_SIZE+textW/2;
+            closeX=getMeasuredWidth()-RIM_SIZE-textW-textW/2;
+        }else {
+             openX=(getMeasuredWidth()-thunmWidth)/2-textW/2;
+             closeX=thunmWidth+(getMeasuredWidth()-thunmWidth)/2-textW/2;
+        }
         canvas.drawText(textClose,closeX,openY,paint);
         canvas.drawText(textOpen,openX,openY,paint);
     }
-    private void drawaThunm(int shapeStype,Canvas canvas){
+    protected void drawaThunm(int shapeStype,Canvas canvas){
+        if(isThumEquilateral){
+            drawaThunmEquilateral(shapeStype,canvas);
+        }else {
+            drawaThunmHalf(shapeStype,canvas);
+        }
+    }
+    protected void drawaThunmHalf(int shapeStype,Canvas canvas){
         if (shapeStype == SHAPE_RECT) {
             paint.setColor(thunm_color);
-            thumbRect = new Rect(thunmLeftLocation, RIM_SIZE, thunmLeftLocation + thunmWidth, thunmHeight);
+            thumbRect.set(thunmLeftLocation, RIM_SIZE, thunmLeftLocation + thunmWidth, thunmHeight);
             canvas.drawRect(thumbRect, paint);
         }else {
             paint.setColor(thunm_color);
-            thumbRect = new Rect(thunmLeftLocation, RIM_SIZE, thunmLeftLocation + thunmWidth, thunmHeight);
-            int thumnRadius = thumbRect.height() / 2 - RIM_SIZE;
-            canvas.drawRoundRect(new RectF(thumbRect), thumnRadius, thumnRadius, paint);
+            thumbCircleRect= new RectF(thunmLeftLocation, RIM_SIZE, thunmLeftLocation + thunmWidth, thunmHeight);
+            int thumnRadius = (int) (thumbCircleRect.height() / 2 - RIM_SIZE);
+            canvas.drawRoundRect(thumbCircleRect, thumnRadius, thumnRadius, paint);
         }
     }
-    private void drawaThunmLine(Canvas canvas){
+    protected void drawaThunmEquilateral(int shapeStype,Canvas canvas){
+        if (shapeStype == SHAPE_RECT) {
+            paint.setColor(thunm_color);
+            thumbRect.set(thunmLeftLocation, RIM_SIZE, thunmLeftLocation
+                    + backRect.height() - 2 * RIM_SIZE, backRect.height()
+                    - RIM_SIZE);
+            canvas.drawRect(thumbRect, paint);
+        }else {
+            paint.setColor(thunm_color);
+            thumbCircleRect.set(thunmLeftLocation, RIM_SIZE, thunmLeftLocation
+                    + backCircleRect.height() - 2 * RIM_SIZE, backCircleRect.height()
+                    - RIM_SIZE);
+            int thumnRadius = (int) (thumbCircleRect.height() / 2 - RIM_SIZE);
+            canvas.drawRoundRect(thumbCircleRect, thumnRadius, thumnRadius, paint);
+        }
+    }
+    protected void drawaThunmLine(Canvas canvas){
+        if(!isThumLine){
+            return;
+        }
         if(isOpen){
             paint.setColor(open_color);
         }else{
@@ -288,35 +334,38 @@ public class SlideSwitch extends View {
     final int HANDLER_CLOSE=1;
     final int  HANDLER_OPEN=2;
     final int  HANDLER_ANIM_END=3;
+    Handler handler=null;
     /**
      * 松开，移动到最左或最右
      * @param toRight
      */
     public void moveToDest(final boolean toRight) {
         setEnabled(false);
-        Handler handler=new Handler(){
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                switch (msg.what){
-                    case HANDLER_OPEN:
-                        isOpen=true;
-                        if(onSlideListener!=null){
-                            onSlideListener.onSlideChangCallback(SlideSwitch.this,true);
-                        }
-                        break;
-                    case HANDLER_CLOSE:
-                        isOpen=false;
-                        if(onSlideListener!=null){
-                            onSlideListener.onSlideChangCallback(SlideSwitch.this,false);
-                        }
-                        break;
-                    case HANDLER_ANIM_END:
-                        setEnabled(true);
-                        break;
+        if(handler==null){
+            handler=new Handler(){
+                @Override
+                public void handleMessage(Message msg) {
+                    super.handleMessage(msg);
+                    switch (msg.what){
+                        case HANDLER_OPEN:
+                            isOpen=true;
+                            if(onSlideListener!=null){
+                                onSlideListener.onSlideChangCallback(SlideSwitch.this,true);
+                            }
+                            break;
+                        case HANDLER_CLOSE:
+                            isOpen=false;
+                            if(onSlideListener!=null){
+                                onSlideListener.onSlideChangCallback(SlideSwitch.this,false);
+                            }
+                            break;
+                        case HANDLER_ANIM_END:
+                            setEnabled(true);
+                            break;
+                    }
                 }
-            }
-        };
+            };
+        }
         moveToDestThread(toRight,handler);
     }
 
